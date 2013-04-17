@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" ng-app="habitrpg">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width"/>
+    <title>HabitRPG</title>
+    <link rel="stylesheet" href="styles/bootstrap.css"/>
+    <link rel="stylesheet" href="styles/main.css"/>
+    <!--<link rel="stylesheet" href="styles/style_habit.css" />-->
+    <link rel="stylesheet" href="styles/beta.css"/>
+    <style>[ng-cloak] {
+        display: none
+    }</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
+</head>
+<body>
+
+<!--<div class="container" ng-view></div>-->
+<div ng-controller="WrapperCtrl" class="wrapper">
+
+    <nav class="menu" ng-class="{menuopen : menuopen, menuclose : menuclose}">
+
+        <div ng-controller="CharacterCtrl">
+            <div class="avatar main-avatar">
+                <div class="character-sprites" ng-cloak>
+                    <span id="ix" class="m_skin_{{user.preferences.skin}}"></span>
+                    <span id="iy" class="m_hair_{{user.preferences.hair}}"></span>
+                    <span id="iz" class="m_armor_{{user.items.armor}}"></span>
+                    <span id="j0" class="m_head_{{user.items.head}}"></span>
+                    <span id="j1" class="m_shield_{{user.items.shield}}"></span>
+                    <span id="j2" class="m_weapon_{{user.items.weapon}}"></span>
+                </div>
+            </div>
+
+            <div class="user">
+                {{user.auth.username}}<br>
+                level {{user.stats.lvl}}
+            </div>
+            <div style="clear:both"></div>
+
+            <div class="meter animate">
+                <span style="width: {{user.stats.hp}}%"><span></span></span>
+            </div>
+
+            <div class="meter animate orange">
+                <span style="width: {{user.stats.exp}}%"><span></span></span>
+            </div>
+        </div>
+
+        <div ng-controller="MenuCtrl">
+            <div class="first_block"><b>Navigation</b></div>
+            <div ng-repeat="button in nav" class="link"><a ng-click="toggleMenu()" href="{{button.name}}">{{button.link}}</a></div>
+            <div ng-click="auth()">LOGIN</div>
+        </div>
+
+    </nav>
+    <div ng-class="{menuopen: menuopen, menuclose: menuclose}">
+    <div ng-view></div>
+    </div>
+</div>
+
+<!-- Exclude these from the build process, minify borks angular dep-inj var names like $scope -->
+<!-- See http://docs.angularjs.org/guide/di "$injection Annotation" for when we're ready to deploy -->
+<script src="components/angular/angular.js"></script>
+<script src="components/angular-resource/angular-resource.js"></script>
+<script src="components/angular-cookies/angular-cookies.js"></script>
+<script src="components/angular-sanitize/angular-sanitize.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="scripts/jquery.sortable.js"></script>
+<script src="cordova-2.6.0.js"></script>
+<script src="cdv-plugin-fb-connect.js"></script>
+<script src="facebook_js_sdk.js"></script>
+
+<div id="fb-root"></div>
+
+
+
+<!-- build:js scripts/scripts.js -->
+
+<!-- Vendor -->
+<script src="components/underscore/underscore-min.js"></script>
+<script src="components/moment/moment.js"></script>
+<!--<script src="scripts/vendor/cdv-plugin-fb-connect.js"></script>-->
+<script src="scripts/vendor/facebook-js-sdk.js"></script>
+
+<!-- HabitRPG Shared -->
+<script src="components/habitrpg-shared/index-browser.js"></script>
+
+<!-- App -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/tasksCtrl.js"></script>
+<script src="scripts/directives/taskFocus.js"></script>
+<script src="scripts/directives/taskBlur.js"></script>
+<script src="scripts/controllers/navCtrl.js"></script>
+<script src="scripts/controllers/wrapperCtrl.js"></script>
+<script src="scripts/controllers/statsCtrl.js"></script>
+<script src="scripts/controllers/characterCtrl.js"></script>
+<script src="scripts/controllers/menuCtrl.js"></script>
+<script src="scripts/controllers/authCtrl.js"></script>
+<script src="scripts/services/userServices.js"></script>
+<script src="scripts/services/sharedServices.js"></script>
+<script src="scripts/services/authServices.js"></script>
+<!-- endbuild -->
+</body>
+</html>
